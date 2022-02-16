@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 掃描package -->
+	<context:component-scan base-package="com" />
+    <!-- 註解啟動 -->
+	<mvc:annotation-driven />
+	
+	<!-- 靜態資源過濾 -->
+	<mvc:default-servlet-handler /> 
+	
+    <!-- Internal Resource View (內部資源視圖): -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	   <property name="prefix" value="/" />
+	   <property name="suffix" value=".jsp" />
+	</bean>
+	
+    <!-- 靜態資源目錄resources，存放如 CSS/JavaScript...等 -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+	 <!-- Spring3.1開始支援-方法級別驗證 (JSR-349 Bean Validation 1.1) -->
+	<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+	
+
+	<!-- 定義檔案上傳解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<!-- 設定預設編碼 -->
+    	<property name="defaultEncoding" value="UTF-8"></property>
+    	<!-- 設定檔案上傳的最大值為5MB，5*1024*1024 -->
+    	<property name="maxUploadSize" value="5242880"></property>
+    	<!-- 設定檔案上傳時寫入記憶體的最大值，如果小於這個引數不會生成臨時檔案，預設為10240 -->
+    	<property name="maxInMemorySize" value="40960"></property>
+    	<!-- 上傳檔案的臨時路徑 -->
+    	<property name="uploadTempDir" value="/images"></property>
+   	 	<!-- 延遲檔案解析 -->
+   		<property name="resolveLazily" value="true"/>
+	</bean>
+</beans>

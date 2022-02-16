@@ -1,0 +1,178 @@
+@charset "UTF-8";
+img{
+	max-width: 100%;
+}
+
+@font-face {
+	font-family: VCR_OSD_MONO;
+	src: url('../../resources/css/VCR_OSD_MONO.ttf');
+}
+
+.dropdown-menu li:hover .sub-menu {
+	visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
+
+#showError {
+	color: red;
+}
+
+#memberSection1 {
+	margin-right: 15px;
+}
+
+#showPanel {
+	margin-top: 20px;
+}
+
+#logoimg img {
+	margin-left: 25px;
+	height: 100px;
+	width: 100px;
+}
+
+#bidPrice {
+	width: 60%;
+}
+
+#clockdiv {
+	width: 100%;
+	height: 32px;
+	text-align: center;
+	background: white;
+	border-radius: 5px;
+	margin: auto;
+}
+
+#clockdiv span {
+	font-family: VCR_OSD_MONO;
+	width: 70px;
+	max-width: 70px;
+	padding: 18px 0;
+	position: relative;
+}
+
+.thumbs img {
+	align: center;
+	display: inline-block;
+	width: 64px;
+	height: 64px;
+	margin: 0 auto;
+	border-style: ridge;
+}
+
+.main-img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+#clockdiv {
+	width: 200px;
+	background-color: #92cdf0;
+}
+#clockdiv span {
+	color: white;
+	font-size: 18px;
+}
+#sidebar a {
+	text-align: justify;
+	text-decoration: none;
+}
+#category {
+	font-size: 28px;
+}
+#category span {
+	font-size: 24px;
+}
+#logoimg img {
+	height: 100px;
+	width: 100px;
+
+}
+@media (max-width: 767.98px){
+	#sidebar {
+		width: 100px;
+	}
+	#sidebar span {
+		display: none;
+	}
+	#sidebar a {
+		text-align: center;
+	}
+	#category {
+		margin-left: 6px;
+	}
+	.btn-outline-warning {
+		width: 95px;
+		overflow: hidden;
+	  	white-space: nowrap;
+	 	display: block;
+	 	text-overflow: ellipsis;
+	 	font-size: 12px;
+	}
+	#logoimg img {
+		margin-left: 0px;
+		height: 70%;
+		width: 70%;
+	}
+/* .btn-outline-warning span { */
+/*  		overflow: hidden; */
+/* 		text-overflow: ellipsis; */
+/* 		white-space: nowrap; */
+/*  	}  */
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+	#sidebar {
+		width: 100px;
+	}
+	#sidebar span {
+		display: none;
+	}
+	#sidebar a {
+		text-align: center;
+	}
+	#category {
+		margin-left: 2px;
+	}
+	.btn-outline-warning {
+		width: 95px;
+		overflow: hidden;
+	  	white-space: nowrap;
+	 	display: block;
+	 	text-overflow: ellipsis;
+	 	font-size: 14px;
+	}
+	#logoimg img {
+		margin-left: 0px;
+
+	}
+}
+@media (min-width: 992px) and (max-width: 1198.98px) {
+	#sidebar span {
+		display: inline;
+	}
+	#sidebar a {
+		text-align: center;
+	}
+	#category > span{
+		font-size: 20px;
+	}
+}
+@media (min-width: 1200px) {
+	#sidebar a {
+		text-align: justify;
+		padding: 8 8 8 8;
+		letter-spacing: 2px;
+	}
+	#sidebar > a  {
+		font-size: 24px;
+		padding: 0;
+	}
+	#category span {
+		font-size: 22px;
+	}
+}

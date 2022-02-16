@@ -1,0 +1,60 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+        <div class="MallTop">
+            <div style="margin-top:56px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col" style="height:50px;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <a href="<%=request.getContextPath()%>/frontend/auctAct/auctActIndex.jsp">
+                                <img src="<%=request.getContextPath()%>/frontend/auctAct/images/logo.jpg" alt="logo" style="height:100px;" margin-bottom=10px;>
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <div class="row ">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Search Product"
+                                        aria-label="Search Product" aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-warning" type="button" id="button-addon2">
+                                        <span class="material-icons-outlined">search</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row align-items-end" style="height:80px;">
+                                <div class="col">
+                                  <a href="<%=request.getContextPath()%>/frontend/EShop.jsp">	
+                                    <button type="button" class="btn btn-outline-warning btn-md">主要商城</button>
+                                  </a>  
+                                </div>
+                                <div class="col">
+                              	  <a href="<%=request.getContextPath()%>/frontend/used/listAllProd.jsp">
+                                    <button type="button" class="btn btn-outline-warning btn-md">二手商城</button>
+                                 </a>
+                                </div>
+                                <div class="col">
+                                  <a href="<%=request.getContextPath()%>/frontend/auctAct/auctActIndex.jsp">	
+                                   <button type="button" class="btn btn-warning  btn-md">拍賣商城</button>
+                                   </a>
+                                </div>
+                                 <div class="col">
+                                    <a href="<%=request.getContextPath()%>/frontend/bid/listAllBid.html">
+                                    <button type="button" class="btn btn-outline-warning btn-md">競標商城</button>
+                                	</a>
+                                </div>
+                                <div class="col">
+                                <a href="<%=request.getContextPath()%>/forum/index.html">	
+                                    <button type="button" class="btn btn-outline-warning btn-md">討論交流</button>
+                                  </a>  
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="row" style="height:20px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>

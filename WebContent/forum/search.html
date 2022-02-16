@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>發佈-CMI討論區</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="css/community.css" />
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/w3.js"></script>
+<script type="text/javascript" src="js/navigation.js"></script>
+
+</head>
+<body>
+<div>
+	<div w3-include-html="navigation.html"></div>
+</div>
+	<div class="container-fluid main">
+		<div class="row">
+			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 question">
+				<div id="question">
+
+				</div>
+				<nav aria-label="Page navigation">
+					<ul class="pagination" id="pageId">
+					</ul>
+				</nav>
+			</div>
+			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+				<h2>熱門</h2>
+				<ul>
+					<li>問題標籤:請簡短扼要描述,不超過25個字</li>
+					<li>問題內容:請詳述問題</li>
+					<li>選擇標籤:請選擇一個或多個標籤,用逗號隔開,每個標籤不超過10個字</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footerbox">
+		<div w3-include-html="footer.html"></div>
+	</div>
+<script>
+	w3.includeHTML();
+
+	const content = document.getElementById('question');
+	const pageId = document.getElementById('pageId');
+
+	function pagination(jsonData, nowPage) {
+		console.log(nowPage);
+		// 取得全部資料長度
+		const dataTotal = jsonData.length;
+		console.log(dataTotal);
+		// 設定要顯示在畫面上的資料數量
+		// 預設每一頁只顯示 5 筆資料。
+		const perPage = 5;
+		
+		// page 按鈕總數量公式 總資料數量 / 每一頁要顯示的資料
+		// 這邊要注意，因為有可能會出現餘數，所以要無條件進位。
+		const pageTotal = Math.ceil(dataTotal / perPage);
+		
+		// 當前頁數，對應現在當前頁數
+		let currentPage = nowPage;
+		
+		// 因為要避免當前頁數筆總頁數還要多，假設今天總頁數是 3 筆，就不可能是 4 或 5
+		// 所以要在寫入一個判斷避免這種狀況。
+		// 當"當前頁數"比"總頁數"大的時候，"當前頁數"就等於"總頁數"
+		// 注意這一行在最前面並不是透過 nowPage 傳入賦予與 currentPage，所以才會寫這一個判斷式，但主要是預防一些無法預期的狀況，例如：nowPage 突然發神經？！
+		if (currentPage > pageTotal) {
+			currentPage = pageTotal;
+		}
+		
+		// 由前面可知 最小數字為 6 ，所以用答案來回推公式。
+		const minData = (currentPage * perPage) - perPage + 1 ;
+		const maxData = (currentPage * perPage) ;
+		
+		// 先建立新陣列
+		const data = [];
+		// 這邊將會使用 ES6 forEach 做資料處理
+		// 首先必須使用索引來判斷資料位子，所以要使用 index
+		jsonData.forEach((item, index) => {
+			// 獲取陣列索引，但因為索引是從 0 開始所以要 +1。
+			const num = index + 1;
+			// 這邊判斷式會稍微複雜一點
+			// 當 num 比 minData 大且又小於 maxData 就push進去新陣列。
+			if ( num >= minData && num <= maxData) {
+			data.push(item);
+			}
+		})
+		// 用物件方式來傳遞資料
+		const page = {
+			pageTotal,
+			currentPage,
+			hasPage: currentPage > 1,
+			hasNext: currentPage < pageTotal,
+		}
+		console.log(page);
+		displayData(data);
+		pageBtn(page);
+	}
+
+	function displayData(data) {
+		let str = `<h2>
+					<span class="glyphicon glyphicon-list" aria-hidden="true">發現</span>
+				</h2>
+				<hr>`;
+		data.forEach((item) => {
+			str += `<div class="media-left">
+						<a href="#"> <img class="media-object img-rounded"
+							src="logo1.png">
+						</a>
+						</div>
+						
+						<div class="media-body">
+						<h4 class="media-heading">
+							<a href="question.html?id=${item.id}&creator=${item.creator}&viewCount=${item.viewCount}" id="${item.id}">${item.title}</a>
+						</h4>
+						<span>${item.description}</span><br> 
+						<span class="text-desc">
+							<span>${item.commentCount}</span>個回覆
+							<span>${item.viewCount}</span>次瀏覽，
+							<span>${datetimeFormat(item.gmtCreate)}</span>
+						</span>
+					</div><br>`
+		});
+		content.innerHTML = str;
+	}
+
+	function pageBtn (page){
+		let str = '';
+		const total = page.pageTotal;
+		
+		if(page.hasPage) {
+			str += `<li class="page-item"><a class="page-link" href="#" data-page="${Number(page.currentPage) - 1}">上一頁</a></li>`;
+		} else {
+			str += `<li class="page-item disabled"><span class="page-link">上一頁</span></li>`;
+		}
+		
+
+		for(let i = 1; i <= total; i++){
+			if(Number(page.currentPage) === i) {
+			str +=`<li class="page-item active"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+			} else {
+			str +=`<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+			}
+		};
+
+		if(page.hasNext) {
+			str += `<li class="page-item"><a class="page-link" href="#" data-page="${Number(page.currentPage) + 1}">下一頁</a></li>`;
+		} else {
+			str += `<li class="page-item disabled"><span class="page-link">下一頁</span></li>`;
+		}
+
+		pageId.innerHTML = str;
+	}
+
+	function switchPage(e){
+		e.preventDefault();
+		if(e.target.nodeName !== 'A') return;
+		const page = e.target.dataset.page;
+		pagination(jsonData, page);
+	}
+
+	pageId.addEventListener('click', switchPage);
+
+
+</script>
+</body>
+</html>

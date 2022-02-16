@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2022�~1��16�� �U��5:27:19 by Hibernate Tools 5.4.12.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="CFA101G1" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.transRec.model.TransRecVO" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="TransRec">
+        <id name="transRecNo" type="java.lang.Integer">
+            <column name="TransRecNo"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="com.member.model.MemberVO" embed-xml="true" fetch="select" insert="true" name="memberVO" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="MemNo" not-null="true">
+                <comment>�|���s��</comment>
+            </column>
+        </many-to-one>
+        <property generated="never" lazy="false" name="transAmount" optimistic-lock="true" type="int" unique="false">
+            <column name="TransAmount" not-null="true">
+                <comment>������B</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="transRecTime" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="TransRecTime" not-null="true">
+                <comment>��������ɶ�</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="transState" optimistic-lock="true" type="int" unique="false">
+            <column name="TransState" not-null="true">
+                <comment>������A</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="mallName" optimistic-lock="true" type="string" unique="false">
+            <column length="24" name="MallName" not-null="true">
+                <comment>�ӫ��W��</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="orderNo" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="OrderNo">
+                <comment>�q��s��/�ӫ~�s��</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="transCont" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="TransCont" not-null="true">
+                <comment>�q����}�s��</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

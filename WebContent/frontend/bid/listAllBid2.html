@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品列表</title>
+<link href="../../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../../resources/css/template.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    
+<style>
+	body {
+		background-color: white;
+	}
+	#main {
+		margin-top: 20px;
+	}
+	.cardlink {
+		text-decoration: none;
+		overflow: hidden;
+		text-overflow:ellipsis;
+	}
+	.card img {
+		margin: 0 auto;
+		height: 150px;
+		width: 200px;
+		max-width: 100%;
+	}
+	#memberSection1 {
+		margin-right: 15px;
+	}
+	#showPanel {
+		margin-top: 20px;
+	}
+	#logoimg img {
+		margin-left: 35px;
+	}
+	@font-face {
+		font-family: VCR_OSD_MONO;
+		src: url('../../resources/css/VCR_OSD_MONO.ttf');
+	} 
+	.timeSpan {
+		font-family: VCR_OSD_MONO;
+		background-color: #fc3071;
+		color: white;
+	}
+</style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../frontend/bid/listAllBid.html">CountMEIn</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">維修服務</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                客服中心
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">檢舉商品</a></li>
+                                <li><a class="dropdown-item" href="#">檢舉賣家</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">查看更多</a></li>
+                            </ul>
+                        </li>
+    
+                    	</ul>
+                 		<div id="memberSection1">
+						<form action="../../front_end/member/register.jsp" class="d-flex">
+							<button class="btn btn-outline-success btn-sm me-md-4"
+								type="submit">註冊</button>
+						</form>
+						</div>
+						<div id="memberSection2">
+						<form action="../../front_end/member/login.html" class="d-flex">
+							<button class="btn btn-outline-success btn-sm" type="submit">登入會員</button>
+						</form>
+						</div>
+                </div>
+            </div>
+        </nav>
+        <div class="MallTop">
+            <div style="margin-top:56px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col" style="height:50px;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <a href="#page-top" id="logoimg">
+                                <img src="../../resources/icon/logo.png" alt="logo" height="100px">
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <div class="row ">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Search Product"
+                                        aria-label="Search Product" aria-describedby="button-addon2" id="searchbar2">
+                                    <button class="btn btn-outline-warning" type="button" id="button-addon2">
+                                        <span class="material-icons-outlined">search</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row align-items-end" style="height:80px;">
+                                <div class="col">
+                                    <button type="button" class="btn btn-outline-warning btn-md">主要商城</button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-outline-warning btn-md">二手商城</button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-outline-warning btn-md">拍賣商城</button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-outline-warning btn-md">競標商城</button>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-outline-warning btn-md">討論交流</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="row" style="height:20px"></div>
+                    </div>
+                </div>
+            </div>
+<!--         </div> -->
+    </header>
+    <session>
+        <div class="container">
+            <div class="prod" style="width:100%;">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 220px;">
+                            <a href="listAllBid.html"
+                                class="d-flex align-items-center mb-5 mb-md-0 me-md-0 cornflowerblue text-decoration-none">
+                                <i class="bi bi-house fs-3 mb-3"></i> &nbsp; <h4> &nbsp;Category</h4>
+                            </a>
+                            <hr>
+                            <ul class="nav nav-pills flex-column mb-auto ">
+                                <li class="nav-item">
+                                    <a href="listAllBid.html?kindNo=1" class="nav-link link-dark">
+                                        <i class="bi bi-phone fs-2 mb-3"> &nbsp;</i>Phone
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="listAllBid.html?kindNo=2" class="nav-link link-dark">
+                                        <i class="bi bi-laptop fs-2 mb-3"> &nbsp;</i>Computer
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="listAllBid.html?kindNo=3" class="nav-link link-dark">
+                                        <i class="bi bi-smartwatch fs-2 mb-3"> &nbsp;</i>Watch
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="listAllBid.html?kindNo=4" class="nav-link link-dark">
+                                        <i class="bi bi-camera fs-2 mb-3"> &nbsp;</i>Camera
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="listAllBid.html?kindNo=5" class="nav-link link-dark">
+                                        <i class="bi bi-headset fs-2 mb-3"> &nbsp;</i>Others
+                                    </a>
+                                </li>
+                            </ul>
+                            <hr>
+                            <div class="dropdown">
+                                <a href="#" class="d-flex align-items-center link-dark">
+                                </a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+			<div class="row col-9" id="showPanel">
+         	
+ 			</div>
+                </div>
+            </div>
+        </div>
+    </session>
+    <footer>
+        <div class="foot">
+            <div class="container">
+                <div class="row" style="height:200px;">
+                    <div class="col-3"></div>
+                    <div class="col-9"></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script type="text/javascript">
+	let xhr = null;
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const kindNo = urlParams.get('kindNo');
+	const searchKeyword = urlParams.get('search');
+	var bidAll;
+	var bidObjArr;
+	var memNo;
+	var memAccount;
+	var memName;
+	var bidLeftTime;
+	var bidLeftTimeToDays;
+	var bidProdStart;
+	var bidProdEnd;
+
+	function showBid(json) {
+		bidAll = JSON.parse(json);
+		bidObjArr = JSONPath.JSONPath({path: '$.bidProduct[*]', json: bidAll});
+		memNo = JSONPath.JSONPath({path: '$.member.memNo', json: bidAll});
+		memAccount = JSONPath.JSONPath({path: '$.member.memAccount', json: bidAll});
+		memName = JSONPath.JSONPath({path: '$.member.memName', json: bidAll});
+		ECash = JSONPath.JSONPath({path: '$.member.ECash', json: bidAll});
+		bidEndTime = JSONPath.JSONPath({path: '$.bidProduct[*].bidProdEndTime', json: bidAll});
+		bidStartTime = JSONPath.JSONPath({path: '$.bidProduct[*].bidProdStartTime', json: bidAll});
+		bidLeftTime = JSONPath.JSONPath({path: '$.bidProduct[*].bidLeftTime', json: bidAll});
+		bidProdStart = JSONPath.JSONPath({path: '$.bidProduct[*].bidProdStart', json: bidAll});
+		bidProdEnd = JSONPath.JSONPath({path: '$.bidProduct[*].bidProdEnd', json: bidAll});
+		if (memNo != undefined && memNo != -1) {
+			document.getElementById("memberSection1").innerHTML = `<a href="../../front_end/member/memberCenter.jsp">${memName}</a>`;
+			document.getElementById("memberSection2").innerHTML = `<form class="d-flex" action="../../member/LoginServlet">
+                <button class="btn btn-outline-success btn-sm me-md-4" type="submit" value="logout" name="action">登出</button>
+                </form>`;
+		}
+// 		console.log(bidLeftTime);
+
+		bidLeftTimeToDays = bidLeftTime.map(function(time) {
+			if (time <= 0) {
+				return "已結束";
+			}
+			let days = Math.floor(time/(1000*60*60*24));
+			time -= days*(60*60*24*1000);
+			let hours = Math.floor(time/(1000*60*60));
+			time -= hours * (60*60*1000);
+			let minutes = Math.floor(time/(1000*60));
+			
+			if (days >= 1) {
+				return `<span class="timeSpan" > ${days}天${hours}時${minutes}分 </span>`;
+			} else if (days < 1) {
+				return `<span class="timeSpan" > ${hours}時${minutes}分 </span>`;
+			} else if (hours < 1) {
+				return `<span class="timeSpan" > ${minutes}分 </span>`;
+			} else {
+				return `<span class="timeSpan" > 即將開始 </span>`;
+			}
+// 			return stateString1 + days + "天" + hours + "時" + minutes + "分";
+		})
+// 		bidLeftTimeToDays = bidLeftTime.map(function(time) {
+// 			var minutes = Math.floor(time/(1000*60));
+// 			if (minutes >= 60) {
+// 				var hours = Math.floor(minutes/60);
+// 				minutes -= (hours*60);
+// 				if (hours >= 24) {
+// 					var days = Math.floor(hours/24);
+// 					hours -= (days*24);
+// 					return (days + "天" + hours + "小時" + minutes + "分鐘");
+// 				}
+// 				return (hours + "小時" + minutes + "分鐘");
+// 			} else if (minutes < 0) {
+// 				return "已結束";
+// 			} else {
+// 				return (minutes + "分鐘");
+// 			}
+// 		})
+// 				x => Math.floor(x/(1000*60)));
+// 		console.log(bidLeftTimeToDays);
+
+		let html = "";
+		console.log(bidObjArr);
+		const newArray = bidObjArr.map(function(obj) {
+            switch (obj.bidState) {
+            case 0:
+                return '未結束';
+                break;
+            case 1:
+                return '截標';
+                break;
+            case 2:
+                return '流標';
+                break;
+            default:
+                return '';
+        	}
+   		 })
+
+    
+		let i = 0;
+		if (bidObjArr.length > 0) {
+			for (i = 0; i < bidObjArr.length; i++) {
+				html += `
+					<div class="col-md-4 col-sm-6">
+						<a href="listOneBid.html?bidProdNo=${bidObjArr[i].bidProdNo}" class="cardlink">
+							<div class="card" style="position:relative">
+		               			<div style="position:absolute; right:0; top:20; color:#fc3071; font-weight:bold"> ${bidLeftTimeToDays[i]} </div> 
+		                  		<img src="../../bidpic/readpic.do?bidProdPicNo=${bidObjArr[i].bidProdPicNo}" class="card-img-top" alt="...">
+		                  			<div class="card-body" style="overflow:hidden">
+		                     			<h5 class="card-title">${bidObjArr[i].bidProdName}</h5>
+		                     			<p class="card-text">${bidObjArr[i].bidProdDescription || "未輸入商品敘述"}</p>
+		                  			</div>
+		               		</div>
+		               	</a>
+		            </div>
+		            `;
+			}
+			document.getElementById("showPanel").innerHTML = html;
+		} else {
+			document.getElementById("showPanel").innerHTML = `<h4>無搜尋結果:(</h4>`;
+		}
+
+	}
+	
+// 	// 剩餘時間計算
+// 	function timeCalculator(bidStartTime, bidEndTime) {
+// 		return Math.floor(bidEndTime - bidStartTime)/(1000*60);
+// 	}
+	
+	document.getElementById("searchbar2").addEventListener('keyup', enterListener);
+	function enterListener(e) {
+		if (e.keyCode === 13) {
+			search();
+			console.log(e.keyCode);
+		}
+	}
+	document.getElementById("button-addon2").addEventListener('click', search);
+	function search() {
+		var keyword = document.getElementById("searchbar2").value;
+		console.log(keyword);
+		
+		var options;
+		if (keyword.trim().length != 0) {
+			options = {
+					includeScore: true,
+					keys: ['bidProdName', 'bidProdDescription'],
+					threshold: 0.6
+			};
+		} else {
+			options = {
+					includeScore: true,
+					keys: ['bidProdName'],
+					threshold: 0.0
+			};
+		}
+		
+		const fuse = new Fuse(bidObjArr, options);
+
+		const results = fuse.search(keyword);
+		const searchResult = results.map(bidObjArr => bidObjArr.item);
+		console.log(searchResult);
+		let i = 0;
+		let searchHtml = "";
+		if (searchResult.length !== 0) {
+			for (i = 0; i < searchResult.length; i++) {
+				searchHtml += `
+					<div class="col-md-4 col-sm-6">
+					<a href="listOneBid.html?bidProdNo=${searchResult[i].bidProdNo}" class="cardlink">
+						<div class="card" style="position:relative">
+	               			<div style="position:absolute; right:0; top:20; color:#9beb34; font-weight:bold"> ${bidLeftTimeToDays[i]} </div> 
+	                  		<img src="../../bidpic/readpic.do?bidProdPicNo=${searchResult[i].bidProdPicNo}" class="card-img-top" alt="...">
+	                  			<div class="card-body" style="overflow:hidden">
+	                     			<h5 class="card-title">${searchResult[i].bidProdName}</h5>
+	                     			<p class="card-text">${searchResult[i].bidProdDescription || "未輸入商品敘述"}</p>
+	                  			</div>
+	               		</div>
+	               	</a>
+	            </div>
+				`
+			}
+			document.getElementById('showPanel').innerHTML = searchHtml;
+		} else if (searchResult.length == 0 || keyword.trim().length != 0) {
+			searchHtml = `<h4>無搜尋結果:(</h4>
+			<a href="listAllBid.html">返回商城主頁面</a>`;
+			document.getElementById('showPanel').innerHTML = searchHtml;
+		} else {
+			console.log('abcdefg');
+		}
+
+		
+// 		var searchXHR = new XMLHttpRequest();
+// 		searchXHR.open("POST", "../../bid/bidSearch.do", true);
+// 		searchXHR.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+// 		searchXHR.send(JSON.stringify(searchResult));
+		
+// 		searchXHR.onload = function() {
+// // 			console.log(searchXHR.responseText);
+// 			var parseResult;
+// 		}
+
+// 		document.getElementById('showPanel2').innerHTML = searchHtml;
+	}
+	
+	var loading = function getBid() {
+		let xhr = new XMLHttpRequest();
+		xhr.onload = function() {
+			if (xhr.status == 200) {
+				showBid(xhr.responseText);
+			} else {
+				window.location.href = '../../frontend/bid/listAllBid.html';
+// 				alert(xhr.status);
+		}
+	}
+// 		let url = "listAllBid.jsp";
+		let url = `listAllBid.jsp2?search=${searchKeyword}`;
+		xhr.open("Get", url, true);
+		xhr.send(null);
+	}
+	setInterval(loading, 30*1000);
+	window.onload = loading;
+</script>
+	<script type="text/javascript"
+		src="../../resources/node_modules/core-js-bundle/minified.js"></script>
+	<script type="text/javascript"
+		src="../../resources/node_modules/jsonpath-plus/dist/index-browser-umd.cjs"></script>
+	<script type="text/javascript" src="../../resources/css/jquery.js"></script>
+<!-- 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
+</body>
+</html>

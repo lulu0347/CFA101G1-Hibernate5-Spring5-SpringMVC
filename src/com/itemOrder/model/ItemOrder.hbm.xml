@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2022�~1��16�� �U��5:27:19 by Hibernate Tools 5.4.12.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="CFA101G1" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.itemOrder.model.ItemOrderVO" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="ItemOrder">
+        <id name="orderNo" type="java.lang.Integer">
+            <column name="OrderNo"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="com.member.model.MemberVO" embed-xml="true" fetch="select" insert="true" name="memberVO" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="MemNo" not-null="true">
+                <comment>�ʶR�|���s��</comment>
+            </column>
+        </many-to-one>
+        <property generated="never" lazy="false" name="tranTime" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="TranTime" not-null="true">
+                <comment>�ӫ~��X���</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="orderTotal" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="OrderTotal">
+                <comment>�q����B</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="orderState" optimistic-lock="true" type="int" unique="false">
+            <column name="OrderState" not-null="true">
+                <comment>�q�檬�A</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="receiverName" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="ReceiverName" not-null="true">
+                <comment>����H�m�W</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="receiverAddress" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="ReceiverAddress" not-null="true">
+                <comment>����H�a�}</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="receiverPhone" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="ReceiverPhone" not-null="true">
+                <comment>����H�q��</comment>
+            </column>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="itemDetails" optimistic-lock="true" sort="unsorted" table="ItemDetail">
+            <key on-delete="noaction">
+                <column name="OrderNo" not-null="true">
+                    <comment>�q��s��</comment>
+                </column>
+            </key>
+            <one-to-many class="com.itemDetail.model.ItemDetailVO" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

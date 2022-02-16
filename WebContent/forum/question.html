@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="${question.title}"></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="css/community.css" />
+	<link rel="stylesheet" href="css/editormd.preview.min.css" />
+	<script type="text/javascript" src="js/moment.js" /></script>
+	<script type="text/javascript" src="js/community.js" /></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/editormd.min.js"></script>
+	<script type="text/javascript" src="js/w3.js"></script>
+	<script type="text/javascript" src="js/navigation.js"></script>
+</head>
+<body>
+	<div w3-include-html="navigation.html"></div>
+	<div class="container-fluid main profile">
+		<div class="row">
+			<!--主要內容-->
+			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+				<div id="single"></div>
+
+				<!--回覆-->
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4 class="comment" id="commentnum">
+						
+					</h4>
+					<hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments" id="commentdetail">
+						
+					</div>
+				</div>
+				<!--回覆textarea -->
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<!--其他會員回覆-->
+					<div id="comment"></div>
+					<h4 class="comment">
+						回覆文章
+					</h4>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment-sp">
+							
+					</div>
+				</div>
+			</div>	
+
+			
+			<!--右邊Nav-->
+			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4>發文者</h4>
+					<div class="media">
+						<div class="media-left">
+							<a href="#"> <img class="media-object img-rounded" src="logo1.png">
+							</a>
+						</div>
+						<div class="media-body" id="create">
+							
+						</div>
+					</div>
+				</div>
+				<hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4>相關問題</h4>
+					<ul class="question-related" id="related">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<div w3-include-html="footer.html"></div>
+<script>
+	w3.includeHTML();
+	const single = document.getElementById('single');
+	let memVO;
+	let loginNumber;
+	let questionCreator;
+	let questionTitle;
+	let loginMemNo;
+	let loginMemName;
+	//先取得網址字串
+	var url = location.href;
+	let id = "";
+	let creator = "";
+
+	//再來用去尋找網址列中是否有資料傳遞(QueryString)
+	if(url.indexOf('?')!=-1)
+	{
+		//在此直接將各自的參數資料切割放進ary中
+		var ary = url.split('?')[1].split('&');
+		
+		//下迴圈去搜尋每個資料參數
+		for(i=0;i<=ary.length-1;i++)
+		{
+			//如果資料名稱為id的話那就把他取出來
+			if(ary[i].split('=')[0] == 'id')
+				id = ary[i].split('=')[1];
+			if(ary[i].split('=')[0] == 'creator')
+				creator = ary[i].split('=')[1];
+		}
+    
+	}
+	
+	//取得creator用此值去找Mem 用ajax找到mem、comment資料
+	$(document).ready(function(){
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			url:"/CFA101G1/member/MemberServlet",
+			data:{
+				"action":"getOne",
+				"memno":creator
+			},
+			success: function (response) {
+				memVO = response;
+				let str = '';
+					str +=	`<h5 class="media-heading">
+								<span>${memVO.memname}</span>
+							</h5>`
+				document.getElementById('create').innerHTML = str;
+			}
+		});
+	});
+
+	//網頁生成 view_count 即加一
+	$(document).ready(function(){				
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			url:"/CFA101G1/forumpost/forumpost.do",
+			data:{
+				"action":"viewcount",
+				"id":id
+			},
+			success: function (response) {
+				console.log(response);
+			}
+		});
+	});
+
+
+
+
+	//取得Question的id 用ajax找到post資料
+	$(document).ready(function(){
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			async:false,
+			url:"/CFA101G1/forumpost/forumpost.do",
+			data:{
+				"action":"getOne_For_Display",
+				"id":id
+			},
+			success: function (response) {
+				questionCreator = response.creator;
+				questionTitle = response.title;
+				let str = '';
+					str +=	`<!-- 問題 -->
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<h4 class="question-title"><span>${response.title}</span></h4>
+							<span class="text-desc"> 
+								發布時間:<span>${datetimeFormat(response.gmtCreate)}</span> | 
+								閱讀數:<span>${response.viewCount}</span> | 
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true" id="edit">編輯</span>
+							</span>
+							<hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							
+							<!-- 內容 -->
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view">
+								${response.description}	  
+								<span class="pull-right text-desc">最後修改時間:${datetimeFormat(response.gmtModified)}</span>
+							</div>
+								
+							<!-- 標籤 -->
+							<hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="tags">
+								
+							</div>
+								
+							<!-- 編輯 -->	
+							<hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<a class="menu">
+									<span class="glyphicon glyphicon-thumbs-up icon" id="thumbUp"></span>
+									<a href="#comment_content"><span class="glyphicon glyphicon-comment"></span></a>
+								</a>
+							</div>
+						</div>`
+				single.innerHTML = str;
+				everyTag(response.tag);
+				document.getElementById('thumbUp').addEventListener('click',function() {
+					if(!$("#thumbUp").hasClass("active")){
+						$.ajax({
+							type:"POST",
+							dataType:"json",
+							url:"/CFA101G1/forumpost/forumpost.do",
+							data:{
+								"action":"likecount",
+								"id":id,
+								"likeCount":response.likeCount
+							},
+							success:function (response) {
+								console.log(response);
+							}
+						})
+					}
+					$("#thumbUp").addClass("active")
+				});
+				document.getElementById('edit').addEventListener('click',function() {
+					if(response.creator == loginNumber){
+						let textchange = `<textarea class="form-control comment" rows="6" id="questionChange" name="questionChange">${response.description}</textarea>
+						<input type="hidden" name="id" value="${id}">
+						<button type="button" class="btn btn-primary comment-btn" onclick="postChange()">修改</button>`			
+						document.getElementById('question-view').innerHTML = textchange;
+					}else{
+						alert("編輯請先登入")
+					}
+				})
+
+					//取得Question的tag 用ajax找到其他Tag資料比對
+					$.ajax({
+						type:"POST",
+						dataType:"json",
+						url:"/CFA101G1/forumpost/forumpost.do",
+						data:{
+							"action":"getAll"
+						},
+						success: function (item) {
+							str = '';
+							$.each(response.tag.split(","), function(index1, tag){
+								$.each(item, function(index2, element){
+									$.each(element.tag.split(","), function(index2, test){
+										if(response.id != element.id){
+											if(tag == test){
+												str += `<li>
+															<a href="question.html?id=${element.id}&creator=${element.creator}">${element.title}</a>
+														</li>`
+											}
+										}	
+									});	
+								});
+							});
+							document.getElementById('related').innerHTML = str;
+						}
+					});
+			}
+		});
+	});
+
+	function postChange(){
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			url:"/CFA101G1/forumpost/forumpost.do",
+			data:{
+				"action":"updatePostContent",
+				"id":id,
+				"description": $("#questionChange").val()
+			},
+			success: function (response) {
+				alert("修改成功");
+				let str = '';
+					str += `${response.description}
+					<span class="pull-right text-desc">最後修改時間:${datetimeFormat(response.gmtModified)}</span>	`
+				document.getElementById('question-view').innerHTML = str;
+			}
+		});
+	}
+
+	function everyTag (item){
+		let str = '';
+
+		$.each(item.split(","), function(index, element){
+			str += ` <span class="label label-info question-tag">
+						<span class="glyphicon glyphicon-tag"></span>
+						<span class="label label-info">${element}</span>
+					</span> `
+		});
+		document.getElementById('tags').innerHTML = str;
+	}
+
+
+
+	//取得Question的id 用ajax找到comment資料
+	$(document).ready(function(){
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			url:"/CFA101G1/forummsg/forummsg.do",
+			data:{
+				"action":"getComment",
+				"id":id
+			},
+			success: function (response) {
+				let commentsum = response.length;
+				let str = '';
+				response.forEach((item) => {
+					$.ajax({
+						type:"POST",
+						dataType:"json",
+						async:false,
+						url:"/CFA101G1/member/MemberServlet",
+						data:{
+							"action":"getOne",
+							"memno":item.commentator
+						},
+						success: function (data) {
+							str +=	`<div class="media">
+							<div class="media-left">
+								<a href="#"> <img class="media-object img-rounded" src="logo1.png"></a>
+							</div>
+							<div class="media-body" id="${'comment-body-'+item.id}">
+								<h5 class="media-heading">
+									<span style="color:grey" id="">${data.memname}</span>
+								</h5>
+								<h4><div>${item.content}</div></h4>
+								<div class="menu">
+									
+									<span id="${item.id}" onclick="collapseComments(this)" class="comment-icon">
+										<a href="#comment_content"><span class="glyphicon glyphicon-comment"></span></a>
+									</span>
+									<span class="pull-right">${datetimeFormat(item.gmtCreate)}</span>
+								</div>
+							</div>
+							</div>
+							<br><br>`
+						}
+					});
+				});
+				document.getElementById('commentdetail').innerHTML = str;				
+				let number = '';
+					number += `
+				<span>${response.length}</span>個回覆`
+				document.getElementById('commentnum').innerHTML = number;
+				$.ajax({
+					type:"POST",
+					dataType:"json",
+					url:"/CFA101G1/forumpost/forumpost.do",
+					data:{
+						"action":"commentcount",
+						"id":id,
+						"commentCount": response.length
+					},
+					success: function (response) {
+						console.log(response);
+					}
+				});
+			}
+		});
+	});
+
+	//確認是否登入,登入才開放回覆
+	$(document).ready(function(){
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			async:false,
+			url:"/CFA101G1/member/LoginServlet",
+			data:{
+				"action":"check",
+			},
+			success: function (response) {
+				loginMemNo = response.memno;
+				loginMemName = response.memname;
+				if(response != -1){
+					loginNumber = response.memno;
+					let str ='';
+					str += `<div class="media">
+							     <div class="media">
+			                        <div class="media-left">
+			                            <a href="#">
+			                                <img class="media-object img-rounded" src="logo1.png">
+			                            </a>
+			                        </div>
+			                        <div class="media-body">
+			                            <h5 class="media-heading">
+			                                <span>${response.memname}</span>
+			                            </h5>
+			                        </div>
+			                    </div>
+						</div>
+						<input type="hidden" id="memNo" value="${response.memno}">
+						<input type="hidden" id="question_id" value="${id}">
+						<input type="hidden" id="questionCreator" value="${questionCreator}">
+						<input type="hidden" id="questionTitle" value="${questionTitle}">
+						<input type="hidden" id="loginMemNo" value="${loginMemNo}">
+						<input type="hidden" id="loginMemName" value="${loginMemName}">
+						<textarea class="form-control comment" rows="6" id="comment_content"></textarea>
+						<button type="button" class="btn btn-primary comment-btn" onclick="post()">回覆</button>`
+					document.getElementById('comment-sp').innerHTML = str;	
+				}else{
+					let str ='';
+					str += `<div class="media">
+							     <div class="media">
+			                        <div class="media-left">
+			                            <a href="#">
+			                                <img class="media-object img-rounded" src="logo1.png">
+			                            </a>
+			                        </div>
+			                        <div class="media-body">
+			                            <h5 class="media-heading">
+			                                <span>訪客</span>
+			                            </h5>
+			                        </div>
+			                    </div>
+						</div>
+						<input type="hidden" id="question_id" value="">
+						<textarea class="form-control comment" rows="6" id="comment_content" placeholder="請先登入" disabled></textarea>
+						<button type="button" class="btn btn-primary comment-btn" onclick="post()" disabled>回覆</button>`
+					document.getElementById('comment-sp').innerHTML = str;	
+				}
+			}
+		});
+	});
+
+	$(document).ready(function(){					
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			url:"/CFA101G1/notify/notify.do",
+			data:{
+				"action":"QMID",
+				"receiver": loginMemNo,
+				"outerid":id
+			},
+			success: function (response) {
+				console.log(response);
+			}
+		})
+	});
+
+</script>
+</body>
+</html>

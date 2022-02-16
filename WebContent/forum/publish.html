@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>發佈-CMI討論區</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/community.css"/>
+    <link rel="stylesheet" href="css/editormd.min.css"/>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/community.js"></script>
+    <script type="text/javascript" src="js/editormd.min.js"></script>
+    <script type="text/javascript" src="js/w3.js"></script>
+    <script type="text/javascript" src="js/navigation.js"></script>
+    
+</head>
+<body>
+<div>
+	<div w3-include-html="navigation.html"></div>
+</div>	
+<div class="container-fluid main">
+  <div class="row">
+    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+      <h2><span class="glyphicon glyphicon-plus" aria-hidden="true">發表</span></h2>
+      <hr>
+
+      <form action="/publish" method="post">
+      	<input type="hidden" name="id">
+        <div class="form-group">
+          <label for="title">問題標題:</label><span id="titleerror"></span>
+          <input type="text" class="form-control" id="title" name="title" maxlength="50">
+        </div>
+        <div class="form-group" id="question-editor" style="z-index: 2">
+                <label for="description">問題補充(必填，請參考右側提示):</label><span id="deserror"></span>
+                <textarea name="description" id="description" class="form-control" cols="30" rows="10" ></textarea>
+          <label for="tag">添加標籤:</label><span id="tagerror"></span>
+          <input type="text" class="form-control" id="tag" name="tag" placeholder="添加標籤 以   , 隔開" onclick="showSelectTag()" maxlength="50">
+			  <div id="select-tag" class="publish-tag-tab">
+                      <ul class="nav nav-tabs" role="tablist">
+                          <li role="presentation" class="active">
+                              <a aria-controls="home" role="tab" data-toggle="tab">熱門標籤</a>
+                          </li>
+                      </ul>
+                      <div class="tab-content">
+                        <div role="tabpanel" id="熱門標籤" class="tab-pane active">
+                          <span>
+                              <span>
+                                <span class="community-tag" onclick="selectTag(this)" data-tag="全新商品"> 全新商品</span>
+                              </span>
+                              <span>
+                                <span class="community-tag" onclick="selectTag(this)" data-tag="會員相關"> 會員相關</span>
+                              </span>
+                              <span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="二手商品"> 二手商品</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="賣家"> 賣家</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="商品問題"> 商品問題</span>
+                          </span>
+                              <span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="拍賣商品"> 拍賣商品</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="拍賣問題"> 拍賣問題</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="拍賣數量"> 拍賣數量</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="拍賣時間"> 拍賣時間</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="拍賣商品內容"> 拍賣商品內容</span>
+                          </span>
+                              <span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="競標商品"> 競標商品</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="競標規則"> 競標規則</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="競標時間"> 競標時間</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="競標金額"> 競標金額</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="競標問題"> 競標問題</span>
+                          </span>
+                              <span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="閒聊"> 閒聊</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="抱怨"> 抱怨</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="分享"> 分享</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="開箱"> 開箱</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="心得"> 心得</span>
+                          </span><span>
+                              <span class="community-tag" onclick="selectTag(this)" data-tag="討論"> 討論</span>
+                          </span>
+                          </span>
+                        </div>  
+                        
+                      </div>
+           </div>
+        </div>
+        
+        <div class="container-fluid main">
+    			<div class="row">
+      			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" id="error"></div>
+      				<input type="hidden" name="action" value="insert">
+      			    <input type="button" class="btn btn-success btn-publish" id="check" value="發文"  disabled="disabled">
+      			</div>
+    		</div>
+     </form>
+    </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+      <h2>備註</h2>
+      <ul>
+        <li>問題標籤:請簡短扼要描述,不超過25個字</li>
+        <li>問題內容:請詳述問題</li>
+        <li>選擇標籤:請選擇一個或多個標籤,用逗號隔開,每個標籤不超過10個字</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="footerbox">
+  <div w3-include-html="footer.html"></div>
+</div>
+
+<script>
+  let loginMemNo;
+
+  $(document).ready(function(){
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			async:false,
+			url:"/CFA101G1/member/LoginServlet",
+			data:{
+				"action":"check",
+			},
+			success: function (response) {
+				if(response != -1){
+          loginMemNo = response.memno;
+        }else{
+          windows.location.href="index.html";
+        }
+      }
+    });
+  });
+
+
+  $("#title").blur(function(){
+	if($("#tag").val().trim().length > 0 && $("#description").val().trim().length > 0 && $("#title").val().trim().length > 0){
+    	  $("#check").removeAttr("disabled");
+    }
+    if ($("#title").val().trim().length > 0) {
+      $("#titleerror").html("");
+      
+    } else{
+      $("#titleerror").html("標題不得為空");
+      $("#titleerror").css("color","red");
+      $("#check").attr("disabled","disabled");
+    }
+  });
+
+  $("#description").blur(function(){
+    if($("#tag").val().trim().length > 0 && $("#description").val().trim().length > 0 && $("#title").val().trim().length > 0){
+    	  $("#check").removeAttr("disabled");
+    }
+      
+    if ($("#description").val().trim().length > 0) {
+      $("#deserror").html("");
+    } else{
+      $("#deserror").html("內容不得為空");
+      $("#deserror").css("color","red");
+      $("#check").attr("disabled","disabled");
+    }
+  });
+
+  $("#tag").change(function(){
+	if($("#tag").val().trim().length > 0 && $("#description").val().trim().length > 0 && $("#title").val().trim().length > 0){
+    	  $("#check").removeAttr("disabled");
+    }
+	  
+    if ($("#tag").val().trim().length > 0) {    
+      $("#tagerror").html("");
+      
+    } else{
+      $("#tagerror").html("標籤不得為空");
+      $("#tagerror").css("color","red");
+      $("#check").attr("disabled","disabled");
+    }
+  });
+
+  $("#check").click(function(){
+	    var str1 =$("#description").val();
+	    console.log(str1);
+	//當遇到兩個空白轉換成兩個   註 : 這麼做是為了有其他考量 , 如果只是純文字資料沒有其他標籤符號 , 那轉換一個空白就可以了 .
+	    str2 = str1.replace(/  /g, "  ");
+	     //textarea換行轉成<br>
+	    str2 = str2.replace(/\n/g," <br>");
+    $.ajax({
+      type: "POST", 
+      dataType: "json",
+      url: "/CFA101G1/forumpost/forumpost.do",
+      data:{
+        "action": "insert",
+        "memNo": loginMemNo,
+        "title": $("#title").val(),
+        "description": str2,
+        "tags": $("#tag").val(),
+      },
+      success: function (data) {
+        if(data==1){
+          $("#error").removeClass("alert alert-danger");
+          window.location.href="/CFA101G1/forum/index.html"
+          console.log(response);
+        }else{
+          $("#error").html(data);
+          $("#error").addClass("alert alert-danger");
+        }
+        
+        },
+    })
+  }) ;
+
+  w3.includeHTML();
+
+</script>
+</body>
+</html>

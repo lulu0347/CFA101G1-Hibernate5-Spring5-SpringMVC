@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2022�~1��16�� �U��5:27:19 by Hibernate Tools 5.4.12.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="false">
+    <class catalog="CFA101G1" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.productKind.model.ProductKindVO" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="ProductKind">
+        <id name="kindNo" type="java.lang.Integer">
+            <column name="KindNo"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="kindName" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="KindName" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="items" optimistic-lock="true" sort="unsorted" table="Item">
+            <key on-delete="noaction">
+                <column name="KindNo" not-null="true">
+                    <comment>�ӫ~���O�s��</comment>
+                </column>
+            </key>
+            <one-to-many class="com.item.model.ItemVO" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

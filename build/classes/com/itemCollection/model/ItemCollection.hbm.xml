@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2022�~1��16�� �U��5:27:19 by Hibernate Tools 5.4.12.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true"
+	default-access="property" default-cascade="none" default-lazy="true">
+	<class catalog="CFA101G1" dynamic-insert="false"
+		dynamic-update="false" mutable="true"
+		name="com.itemCollection.model.ItemCollectionVO" optimistic-lock="version"
+		polymorphism="implicit" select-before-update="false"
+		table="ItemCollection">
+		<composite-id class="com.itemCollection.model.ItemCollectionId"
+			mapped="false" name="id" unsaved-value="undefined">
+			<key-property name="memNo" type="int">
+				<column name="MemNo" />
+			</key-property>
+			<key-property name="itemNo" type="int">
+				<column name="ItemNo" />
+			</key-property>
+		</composite-id>
+	</class>
+</hibernate-mapping>

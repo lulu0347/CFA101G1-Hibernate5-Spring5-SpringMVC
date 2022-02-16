@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2022�~1��16�� �U��5:27:19 by Hibernate Tools 5.4.12.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="CFA101G1" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.item.model.ItemVO" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="Item">
+        <id name="itemNo" type="java.lang.Integer">
+            <column name="ItemNo"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="com.productKind.model.ProductKindVO" embed-xml="true" fetch="select" insert="true" name="productKindVO" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="KindNo" not-null="true">
+                <comment>�ӫ~���O�s��</comment>
+            </column>
+        </many-to-one>
+        <property generated="never" lazy="false" name="itemName" optimistic-lock="true" type="string" unique="false">
+            <column length="40" name="ItemName" not-null="true">
+                <comment>�ӫ~�W��</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="itemPrice" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="ItemPrice">
+                <comment>�ӫ~���</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="itemState" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="ItemState">
+                <comment>�W�[���A</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="soldTime" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="SoldTime">
+                <comment>�U�[�ɶ�</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="launchedTime" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="LaunchedTime" not-null="true">
+                <comment>�W�[�ɶ�</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="warrantyDate" optimistic-lock="true" type="big_decimal" unique="false">
+            <column name="WarrantyDate" not-null="true" precision="5" scale="1">
+                <comment>�ӫ~�O�T�~��</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="itemProdDescription" optimistic-lock="true" type="string" unique="false">
+            <column length="1000" name="ItemProdDescription" not-null="true">
+                <comment>�ӫ~�ԭz</comment>
+            </column>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="itemPics" optimistic-lock="true" sort="unsorted" table="ItemPic">
+            <key on-delete="noaction">
+                <column name="ItemNo" not-null="true">
+                    <comment>�ӫ~�s��</comment>
+                </column>
+            </key>
+            <one-to-many class="com.itemPic.model.ItemPicVO" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="itemDetails" optimistic-lock="true" sort="unsorted" table="ItemDetail">
+            <key on-delete="noaction">
+                <column name="ItemNo" not-null="true">
+                    <comment>�ӫ~�s��</comment>
+                </column>
+            </key>
+            <one-to-many class="com.itemDetail.model.ItemDetailVO" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

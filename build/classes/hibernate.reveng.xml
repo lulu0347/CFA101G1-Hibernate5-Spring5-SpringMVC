@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="CFA101G1" match-name="ItemDetail"/>
+  <table-filter match-catalog="CFA101G1" match-name="ItemCollection"/>
+  <table-filter match-catalog="CFA101G1" match-name="Item"/>
+  <table-filter match-catalog="CFA101G1" match-name="ItemOrder"/>
+  <table-filter match-catalog="CFA101G1" match-name="ItemPic"/>
+  <table-filter match-catalog="CFA101G1" match-name="Mem"/>
+  <table-filter match-catalog="CFA101G1" match-name="ProductKind"/>
+  <table-filter match-catalog="CFA101G1" match-name="TransRec"/>
+</hibernate-reverse-engineering>

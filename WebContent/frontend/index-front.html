@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>使用GET請求方式取得JSON回應字串</title>			   
+<style> 
+.empTable { border-collapse:collapse}
+.empTable th{ background-color:#BFBFFF;
+                color:blue;	
+				text-align:right;
+				border-style:dotted;
+				font-weight:normal;
+				padding : 5px;
+		     }  
+.empTable td{
+	          border:2px dotted deepPink;
+			  padding:5px; 
+		     }    				
+			 
+</style>  
+<!-- <script src="json.js"></script> --> 
+</head>
+<body>
+<table align="center">
+<tr><td>員工帳號</td>
+    <td><input type="text" name="empno" id="empno">( 7566 )</td> 
+</tr>
+<tr><td colspan="2" align="center">
+    <input type="button" value="取得員工資料" onClick="getEmployee();">	
+    </td>
+</tr>
+</table>	
+<div id="showPanel">
+</div> 	
+<script>  
+var xhr = null;
+
+function showEmployee(json){
+  //剖析json字串,將其轉成jsob物件
+  let emp = JSON.parse(json);
+  let html = "";
+
+  console.log(emp);
+  if (emp.empno) {
+    html = `<table align="center" class="empTable">
+  <tr><th>員工代號</th><td>${emp.empno}</td></tr>
+  <tr><th>姓名</th><td>${emp.ename}</td></tr>
+  <tr><th>薪資</th><td>${emp.sal}</td></tr>
+  <tr><th>聘用日期</th><td>${emp.hiredate}</td></tr>
+  </table>`;
+  } else {
+    html = "<center>查無此員工資料</center>";
+  }
+  
+  
+  document.getElementById("showPanel").innerHTML = html;
+}
+
+function getEmployee(){ 
+  var xhr = new XMLHttpRequest();
+  //設定好回呼函數   
+  xhr.onload = function (){
+      if( xhr.status == 200){
+        // document.getElementById("showPanel").innerHTML = xhr.responseText;
+        showEmployee(xhr.responseText);
+      }else{
+        alert( xhr.status );
+      }//xhr.status == 200
+  };//onload 
+  
+  //建立好Get連接
+  var url= "GetJson_FromDb.jsp?empno=" + document.getElementById("empno").value;
+  xhr.open("Get",url,true); 
+  //送出請求 
+  xhr.send( null );
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd">  
+  
+       <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/> 
+        <property name="url" value="jdbc:mysql://localhost:3306/CFA101G1?serverTimezone=Asia/Taipei"/> 
+        <property name="username" value="root"/> 
+        <property name="password" value="123456"/> 
+    </bean> 
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" destroy-method="destroy"> 
+        <property name="dataSource" ref="dataSource"/> 
+        <property name="mappingResources"> 
+            <list> 
+                <value>com/item/model/Item.hbm.xml</value> 
+                <value>com/member/model/Mem.hbm.xml</value> 
+                <value>com/itemPic/model/ItemPic.hbm.xml</value> 
+                <value>com/itemCollection/model/ItemCollection.hbm.xml</value> 
+                <value>com/itemDetail/model/ItemDetail.hbm.xml</value> 
+                <value>com/itemOrder/model/ItemOrder.hbm.xml</value> 
+                <value>com/productKind/model/ProductKind.hbm.xml</value> 
+                <value>com/transRec/model/TransRec.hbm.xml</value> 
+            </list> 
+        </property> 
+        <property name="hibernateProperties"> 
+            <props> 
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop> 
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+                <prop key="hibernate.transaction.coordinator_class">jdbc</prop>
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+            </props> 
+        </property> 
+    </bean> 
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/> 
+    </bean>    
+         
+    <bean id="ItemDAO" class="com.item.model.ItemDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+    
+    <bean id="ItemCollectionDAO" class="com.itemCollection.model.ItemCollectionDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+    
+    <bean id="ItemDetailDAO" class="com.itemDetail.model.ItemDetailDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+    
+    <bean id="ItemOrderDAO" class="com.itemOrder.model.ItemOrderDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+
+    <bean id="ItemPicDAO" class="com.itemPic.model.ItemPicDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+    
+    <bean id="MemberDAO" class="com.member.model.MemberDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+    
+    <bean id="ProductKindDAO" class="com.productKind.model.ProductKindDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+    
+    <bean id="TransRecDAO" class="com.transRec.model.TransRecDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+<!-- =================================================================================================================== -->
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+<!-- =================================================================================================================== -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

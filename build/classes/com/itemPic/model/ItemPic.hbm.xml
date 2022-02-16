@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2022�~1��16�� �U��5:27:19 by Hibernate Tools 5.4.12.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="CFA101G1" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.itemPic.model.ItemPicVO" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="ItemPic">
+        <id name="itemPicNo" type="java.lang.Integer">
+            <column name="ItemPicNo"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="com.item.model.ItemVO" embed-xml="true" fetch="select" insert="true" name="itemVO" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="ItemNo" not-null="true">
+                <comment>�ӫ~�s��</comment>
+            </column>
+        </many-to-one>
+        <property generated="never" lazy="false" name="itemPic" optimistic-lock="true" type="binary" unique="false">
+            <column name="ItemPic" not-null="true">
+                <comment>�ӫ��ӫ~�Ӥ�</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

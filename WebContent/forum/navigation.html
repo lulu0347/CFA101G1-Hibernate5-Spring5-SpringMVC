@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>發佈-CMI討論區</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="css/community.css" />
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+
+
+</head>
+<body>
+<div>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only" >CountMeIn討論區</span>
+				</button>
+				<a class="navbar-brand" href="index.html" id="index">CountMeIn討論區</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<form class="navbar-form navbar-left" method="get">
+					<div class="form-group">
+						<input type="text" class="form-control" name="search" id="search"  placeholder="搜尋文章">
+					</div>
+					<button type="button" class="btn btn-default" id="searchButton">搜尋</button>
+				</form>
+				<ul class="nav navbar-nav">
+					  <li class="dropdown"><a
+                        href="#" class="dropdown-toggle" data-toggle="dropdown"
+                        role="button" aria-haspopup="true" aria-expanded="false">
+                        <span>回到</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="position:absolute;z-index:1000;">
+                        <li><a href="/CFA101G1/frontend/EShop.jsp">主要商城</a></li>
+                        <li><a href="/CFA101G1/frontend/used/listAllProd.jsp">二手商城</a></li>
+                        <li><a href="/CFA101G1/frontend/auctAct/auctActIndex.jsp">拍賣商城</a></li>
+                        <li><a href="/CFA101G1/frontend/bid/listAllBid.html">競標商城</a></li>
+                        </ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" id="loginornot">
+					
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+</div>
+<script>
+		$(document).ready(function(){
+		let search="";
+		document.getElementById("search").addEventListener("blur",function(){
+			search = $("#search").val();
+		})
+
+		document.getElementById("searchButton").addEventListener("click", function(){
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url:"/CFA101G1/forumpost/forumpost.do",
+				data:{
+					"action":"search",
+					"search": search
+				},
+				success:function(response){
+					console.log(response);
+					pagination(response, 1)
+				}
+			})
+		});
+	});
+</script>
+</body>
+</html>

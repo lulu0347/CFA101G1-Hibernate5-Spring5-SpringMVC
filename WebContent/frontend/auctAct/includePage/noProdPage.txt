@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>	
+<div class="container">
+		<div class="row">
+			<div class="col-5"></div>
+			<div class="col-7">
+				<img
+					src="<%=request.getContextPath()%>/frontend/auctAct/images/error.png"
+					style="width: 250px";>
+				<h5>購物車目前沒有商品 :(</h5>
+			</div>
+		</div>
+	</div>

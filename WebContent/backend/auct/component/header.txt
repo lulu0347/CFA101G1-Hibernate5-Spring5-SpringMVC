@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<header>
+		<div class="MallTop">
+				<div class="container">
+					<div class="row">
+						<div class="col" style="height: 30px;"></div>
+					</div>
+					<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+					<div class="row">
+						<div class="col-3">
+							<a href="<%=request.getContextPath()%>/backend/auct.jsp"> 
+							<img src="<%=request.getContextPath()%>/backend/auct/images/logo.jpg" alt="logo"
+								style="height:100px;margin-bottom: 30px;">
+							</a>
+						</div>
+						<div class="col-6">
+							<div class="row ">
+								<div class="input-group mb-4 justify-content-center"></div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+		</div>
+	</header>

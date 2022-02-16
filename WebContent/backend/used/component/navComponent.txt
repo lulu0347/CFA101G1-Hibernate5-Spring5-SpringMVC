@@ -1,0 +1,9 @@
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="<%=request.getContextPath()%>/CFA101G1/backend/used.jsp">回二手商城管理</a>
+        
+                </div>
+            </div>
+        </nav>

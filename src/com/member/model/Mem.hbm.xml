@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2022�~1��16�� �U��5:27:19 by Hibernate Tools 5.4.12.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="CFA101G1" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.member.model.MemberVO" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="Mem">
+        <id name="memNo" type="java.lang.Integer">
+            <column name="MemNo"/>
+            <generator class="identity"/>
+        </id>
+        <property generated="never" lazy="false" name="memAccount" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="MemAccount" not-null="true">
+                <comment>�|���b��</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memPassword" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="MemPassword" not-null="true">
+                <comment>�|���K�X</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memStatus" optimistic-lock="true" type="int" unique="false">
+            <column name="MemStatus" not-null="true">
+                <comment>�b�����A</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memVrfed" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="MemVrfed">
+                <comment>���Ҫ��A</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memNoVrftime" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="MemNoVrftime">
+                <comment>�|�����ҧ����ɶ�</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memName" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="MemName" not-null="true">
+                <comment>�m�W</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memMobile" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="MemMobile" not-null="true">
+                <comment>�q��</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memCity" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="MemCity" not-null="true">
+                <comment>�a�}����</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memDist" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="MemDist" not-null="true">
+                <comment>�a�}�ϰ�</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memAdd" optimistic-lock="true" type="string" unique="false">
+            <column length="100" name="MemAdd" not-null="true">
+                <comment>�a�}</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memEmail" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="MemEmail" not-null="true">
+                <comment>E-Mail</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memBirth" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="MemBirth" not-null="true">
+                <comment>�ͤ�</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="memJointime" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="MemJointime">
+                <comment>�[�J�ɶ�</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="usderStatus" optimistic-lock="true" type="int" unique="false">
+            <column name="UsderStatus" not-null="true">
+                <comment>��a�\�બ�A</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="ecash" optimistic-lock="true" type="int" unique="false">
+            <column name="ECash" not-null="true">
+                <comment>���]���l</comment>
+            </column>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="transRecs" optimistic-lock="true" sort="unsorted" table="TransRec">
+            <key on-delete="noaction">
+                <column name="MemNo" not-null="true">
+                    <comment>�|���s��</comment>
+                </column>
+            </key>
+            <one-to-many class="com.transRec.model.TransRecVO" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="itemOrders" optimistic-lock="true" sort="unsorted" table="ItemOrder">
+            <key on-delete="noaction">
+                <column name="MemNo" not-null="true">
+                    <comment>�ʶR�|���s��</comment>
+                </column>
+            </key>
+            <one-to-many class="com.itemOrder.model.ItemOrderVO" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

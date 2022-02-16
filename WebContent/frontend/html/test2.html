@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+Checkbox:
+<input type="checkbox" id="data1" class="test">
+<input type="checkbox" id="data2" class="test">
+
+<p>Click the "Try it" button to find out whether the checkbox is checked, or not.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+
+function myFunction() {
+	if (document.querySelectorAll("input[type='checkbox']:checked").length == 0) {
+    	alert("hello");
+    } else {
+    	alert("");
+    }
+}
+/*
+function myFunction() {
+  var x = document.getElementById("myCheck").checked;
+  document.getElementById("demo").innerHTML = x;
+}
+*/
+</script>
+
+</body>
+
+</html>

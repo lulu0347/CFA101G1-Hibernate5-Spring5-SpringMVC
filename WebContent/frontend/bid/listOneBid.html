@@ -1,0 +1,501 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Count_ME_In_Bid.html</title>
+<link href="../../resources/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet" />
+
+<link rel="stylesheet" href="../../resources/css/template.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<style>
+img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+}
+
+@font-face {
+	font-family: VCR_OSD_MONO;
+	src: url('../../resources/css/VCR_OSD_MONO.ttf');
+}
+
+.dropdown-menu li:hover .sub-menu {
+	visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
+
+#showError {
+	color: red;
+}
+
+#showPanel {
+	margin-top: 20px;
+}
+
+#logoimg img {
+	margin-left: 25px;
+	height: 100px;
+	width: 100px;
+}
+
+#bidPrice {
+	width: 60%;
+}
+
+#clockdiv {
+	height: 32px;
+	text-align: center;
+	border-radius: 5px;
+	width: 300px;
+	background-color: #32a64b;
+	display: block;
+}
+
+#clockdiv span {
+	font-family: VCR_OSD_MONO;
+	font-size: 18px;
+	width: 70px;
+	max-width: 70px;
+	padding: 18px 0;
+	position: relative;
+	color: white;
+}
+
+.thumbs img {
+	align: center;
+	display: inline-block;
+	width: 64px;
+	height: 64px;
+	margin: 0 auto;
+	border-style: ridge;
+}
+
+.main-img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+#sidebar a {
+	text-align: justify;
+	text-decoration: none;
+}
+
+#category {
+	font-size: 28px;
+}
+
+#category span {
+	font-size: 24px;
+}
+
+#logoimg img {
+	height: 100px;
+	width: 100px;
+}
+#mainBidProdPic {
+	max-height: 250px;
+	float: left;
+}
+#product-text {
+	padding-right: 0;
+}
+#test {
+	padding: 0;
+	text-align: left;
+}
+#bidLeftTime {
+	width: 120%;
+}
+#bidProdName {
+	display: block;
+}
+#memberName {
+/* 	margin-right: 25px; */
+	text-decoration: none;
+}
+#checkoutZone {
+	color: #edaf53;
+	text-align: justify;
+	border: 1px ridge;
+}
+#checkoutButton {
+  border-radius: 4px;
+  background-color: #ff73f8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 16px;
+  padding: 5px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+#checkoutButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+#checkoutButton span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+#checkoutButton:hover span {
+  padding-right: 25px;
+}
+
+#checkoutButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+@media (max-width : 767.98px) {
+	#sidebar {
+		width: 100px;
+	}
+	#sidebar span {
+		display: none;
+	}
+	#sidebar a {
+		text-align: center;
+	}
+	#category {
+		margin-left: 6px;
+	}
+	.btn-outline-warning {
+		width: 95px;
+		overflow: hidden;
+		white-space: nowrap;
+		display: block;
+		text-overflow: ellipsis;
+		font-size: 12px;
+	}
+	#logoimg img {
+		margin-left: 0px;
+		height: 70%;
+		width: 70%;
+	}
+	#mainBidProdPic {
+		max-height: 250px;
+		float: left;
+	}
+	#product-text {
+		padding-top: 80px;
+	}
+}
+
+@media (min-width : 768px) and (max-width: 991.98px) {
+	#sidebar {
+		width: 100px;
+	}
+	#sidebar span {
+		display: none;
+	}
+	#sidebar a {
+		text-align: center;
+	}
+	#category {
+		margin-left: 2px;
+	}
+	.btn-outline-warning {
+		width: 95px;
+		overflow: hidden;
+		white-space: nowrap;
+		display: block;
+		text-overflow: ellipsis;
+		font-size: 14px;
+	}
+	#logoimg img {
+		margin-left: 0px;
+	}
+}
+
+@media ( min-width : 992px) and (max-width: 1198.98px) {
+	#sidebar span {
+		display: inline;
+	}
+	#sidebar a {
+		text-align: center;
+	}
+	#category>span {
+		font-size: 20px;
+	}
+}
+
+@media ( min-width : 1200px) {
+	#sidebar {
+		width: 180px;
+	}
+	#sidebar a {
+		text-align: justify;
+		padding: 8 8 8 8;
+		letter-spacing: 2px;
+	}
+	#sidebar>a {
+		font-size: 24px;
+		padding: 0;
+	}
+	#category span {
+		font-size: 22px;
+	}
+}
+</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="../../frontend/Frontpage.jsp">CountMEIn</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0" id="nav-left">
+						
+
+					</ul>
+					<div id="memberSection0">
+						<form action="../../transRec/transrec.do" class="d-flex">
+							<input type="hidden" name="action" value="deposit">
+							<button class="btn btn-outline-success btn-sm me-md-4"
+								type="submit">我的錢包</button>
+						</form>
+					</div>
+					<div id="memberSection1">
+						<form action="../../frontend/member/register.jsp" class="d-flex">
+							<button class="btn btn-outline-success btn-sm me-md-4"
+								type="submit">註冊</button>
+						</form>
+					</div>
+					<div id="memberSection2">
+						<form action="../../frontend/member/login.html" class="d-flex">
+							<button class="btn btn-outline-success btn-sm" type="submit">登入會員</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<div class="MallTop">
+			<div style="margin-top: 56px">
+				<div class="container">
+					<div class="row">
+						<div class="col" style="height: 50px;"></div>
+					</div>
+					<div class="row">
+						<div class="col-3">
+							<a href="../../frontend/bid/listAllBid.html" id="logoimg"> <img
+								src="../../resources/icon/logo.png" alt="logo" height="100px"
+								width="100px">
+							</a>
+						</div>
+						<div class="col-6">
+							<div class="row">
+								<div class="input-group mb-3">
+									<table>
+										<form action="listAllBid.html?searchKeyword=">
+											<input type="text" class="form-control"
+												placeholder="Search Product" aria-label="Search Product"
+												aria-describedby="button-addon2" id="searchbar2"
+												name="searchKeyword"> <input type="hidden"
+												name="action" value="search"> <input
+												class="btn btn-outline-warning" type="submit"
+												id="button-addon2" value="搜尋">
+										</form>
+									</table>
+								</div>
+							</div>
+							<div class="row align-items-end" style="height: 80px;">
+								<div class="col">
+									<a href="../../frontend/EShop.jsp">
+										<button type="button" class="btn btn-outline-warning btn-md">主要商城</button>
+									</a>
+								</div>
+								<div class="col">
+									<a href="../../frontend/used/listAllProd.jsp">
+										<button type="button" class="btn btn-outline-warning btn-md">二手商城</button>
+									</a>
+								</div>
+								<div class="col">
+									<a href="../../frontend/auctAct/auctActIndex.jsp">
+										<button type="button" class="btn btn-outline-warning btn-md">拍賣商城</button>
+									</a>
+								</div>
+								<div class="col">
+									<a href="../../frontend/bid/listAllBid.html">
+										<button type="button" class="btn btn-outline-warning btn-md">競標商城</button>
+									</a>
+								</div>
+								<div class="col">
+									<a href="../../forum/index.html">
+										<button type="button" class="btn btn-outline-warning btn-md">討論交流</button>
+									</a>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+					<div class="row" style="height: 20px"></div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div class="prod" style="width: 100%;">
+			<div class="row">
+				<div class="col-2">
+					<div class="d-flex flex-column flex-shrink-0 p-3 bg-light"
+						id="sidebar">
+						<a href="listAllBid.html"> <i class="bi bi-house"
+							id="category"><span>Category</span></i>
+						</a>
+						<hr>
+						<ul class="nav nav-pills flex-column mb-auto ">
+							<li class="nav-item"><a href="listAllBid.html?kindNo=1"
+								class="nav-link link-dark"> <i class="bi bi-phone fs-2 mb-3"></i><span>Phone
+								</span></a></li>
+							<li><a href="listAllBid.html?kindNo=2"
+								class="nav-link link-dark"> <i
+									class="bi bi-laptop fs-2 mb-3"></i><span>Computer </span></a></li>
+							<li><a href="listAllBid.html?kindNo=3"
+								class="nav-link link-dark"> <i
+									class="bi bi-smartwatch fs-2 mb-3"></i><span>Watch </span></a></li>
+							<li><a href="listAllBid.html?kindNo=4"
+								class="nav-link link-dark"> <i
+									class="bi bi-camera fs-2 mb-3"></i><span>Camera </span></a></li>
+							<li><a href="listAllBid.html?kindNo=5"
+								class="nav-link link-dark"> <i
+									class="bi bi-headset fs-2 mb-3"></i><span>Others </span></a></li>
+						</ul>
+						<hr>
+						<div class="dropdown">
+							<a href="#" class="d-flex align-items-center link-dark"> </a>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="container-fluid page-bg col-10" id="showPanel">
+					<div class="container " id="test">
+						<div class="row ">
+							<div class="col-lg-10 col-md-12 mx-auto">
+								<div class="product-cover">
+									<div class="row no-margin">
+										<div class="col-md-6 product-img no-padding"
+											id="mainBidProdPic">
+											<img
+												src="../../resources/images/450px-No_image_available.png"
+												alt="">
+<!-- 												<div id="bidProdPic" class="thumbs"></div> -->
+										</div>
+										
+
+										<div class="col-md-6 product-det" id="product-text">
+											<div class="producttitle col-3" id="bidLeftTime">
+												<div id="clockdiv">
+													<span class="days"></span><span class="hours"></span><span
+														class="minutes"></span><span class="seconds"></span>
+
+												</div>
+												<span id="bidProdName"></span>
+												
+												<div class="productinfo" id="bidProdDescription">
+													<h6>Features</h6>
+
+												</div>
+												<hr>
+												<div class="priceinfo" id="bidProdStartPrice"></div>
+												<div class="priceinfo" id="bidProdCurrentPrice"></div>
+												<div class="priceinfo" id="bidPriceIncrement"></div>
+												<div id="bidProdStartTime"></div>
+												<div id="bidProdEndTime"></div>
+												
+
+												<div class="row buttonrow">
+													<div class="col-md-6">
+														<FORM id="submitPrice"
+															action="../../bidrecord/bidrecord.do" method="POST">
+															<input type="hidden" name="prodPageURI" id="prodPageURI"
+																value=""> <input type="hidden" name="bidProdNo"
+																id="bidProdNo" value=""> <input type="number"
+																name="bidPrice" id="bidPrice"> <input
+																type="hidden" name="action" value="insertBid"> <input
+																type="button" class="btn btn-success" id="bidButton" value="出價"
+																onclick="submitCheck(action, bidProdNo, memNo, bidPrice);"><br>
+																<span class="text-muted" id="leastPrice"></span><br>
+															<span id="showError"></span>
+
+														</FORM>
+														<div id="showCheckout"></div>
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+<!-- 						<div id="bidProdPic" class="thumbs"></div> -->
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<footer>
+		<div class="foot">
+			<div class="container">
+				<div class="row" style="height: 200px;">
+					<div class="col-3"></div>
+					<div class="col-9"></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="js/listOneBid.js"></script>
+	<script type="text/javascript"
+		src="../../resources/node_modules/core-js-bundle/minified.js"></script>
+	<script type="text/javascript"
+		src="../../resources/node_modules/jsonpath-plus/dist/index-browser-umd.cjs"></script>
+	<script type="text/javascript" src="../../resources/css/jquery.js"></script>
+	<!-- 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+</body>
+</html>
